@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b3801f6-c8b4-44bd-88e2-9fe26c0b045f" name="Список изменений" comment="">
-      <change afterPath="$PROJECT_DIR$/src/HomeWork6/DiscountProduct.java" afterDir="false" />
+    <list default="true" id="1b3801f6-c8b4-44bd-88e2-9fe26c0b045f" name="Список изменений" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HomeWork6/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HomeWork6/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HomeWork6/DiscountProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HomeWork6/DiscountProduct.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +60,15 @@
       <option name="presentableId" value="Default" />
       <updated>1754033753385</updated>
     </task>
+    <task id="LOCAL-00001" summary="1">
+      <option name="closed" value="true" />
+      <created>1755242781549</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1755242781549</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -81,5 +91,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
   </component>
 </project>
