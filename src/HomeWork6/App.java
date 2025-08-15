@@ -2,6 +2,8 @@ package HomeWork6;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class App {
     public static void main(String[] args) {
@@ -10,10 +12,10 @@ public class App {
         Map<String, Product> products = new HashMap<>();
 
         // Ввод покупателей
-        System.out.println("Введите покупателей в формате: Имя = Сумма (пустая строка для завершения)");
+        System.out.println("Введите покупателей в формате: Имя = Сумма (END для завершения)");
         while (true) {
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) break;
+            if (input.equalsIgnoreCase("END")) break;
 
             try {
                 String[] parts = input.split("=");
@@ -31,10 +33,12 @@ public class App {
             }
         }
 
-        System.out.println("Введите продукты в формате: Название = Стоимость (пустая строка для завершения)");
+        System.out.println("\n=== ВВОД ПРОДУКТОВ ===");
+        System.out.println("Формат: Название = Стоимость (END для завершенияF)");
         while (true) {
+            System.out.print("> ");
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) break;
+            if (input.equalsIgnoreCase("END")) break;
 
             try {
                 String[] parts = input.split("=");
@@ -44,65 +48,74 @@ public class App {
                 }
                 String name = parts[0].trim();
                 double cost = Double.parseDouble(parts[1].trim());
-                products.put(name, new Product(name, cost));
+
+                System.out.print("Это скидочный продукт? (y/n): ");
+                String isDiscount = scanner.nextLine().trim();
+
+                if (isDiscount.equalsIgnoreCase("y")) {
+                    System.out.print("Введите размер скидки: ");
+                    double discount = Double.parseDouble(scanner.nextLine());
+
+                    System.out.print("Введите дату окончания скидки (ГГГГ-ММ-ДД): ");
+                    LocalDate expiryDate = LocalDate.parse(scanner.nextLine());
+
+                    products.put(name, new DiscountProduct(name, cost, discount, expiryDate));
+                } else {
+                    products.put(name, new Product(name, cost));
+                }
             } catch (NumberFormatException e) {
-                System.out.println("Ошибка: неверный формат стоимости");
+                System.out.println("Ошибка: неверный формат числа");
+            } catch (DateTimeParseException e) {
+                System.out.println("Ошибка: неверный формат даты. Используйте ГГГГ-ММ-ДД");
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
 
 
-        System.out.println("Введите покупки в формате: Имя Покупателя Название Продукта (END для завершения)");
-        List<Person> sortedPeople = people.values().stream()
-                .sorted(Comparator.comparing(Person::getName))
-                .collect(Collectors.toList());
-
+        System.out.println("\n=== ОБРАБОТКА ПОКУПОК ===");
+        System.out.println("Формат: Имя Покупателя Название Продукта (END для завершения)");
         while (true) {
+            System.out.print("> ");
             String input = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("END")) break;
 
-            try {
-                // Поиск покупателя
-                Person person = null;
-                for (Person p : sortedPeople) {
-                    if (input.startsWith(p.getName())) {
-                        person = p;
-                        break;
-                    }
+            // Поиск покупателя
+            Person person = null;
+            for (String name : people.keySet()) {
+                if (input.startsWith(name)) {
+                    person = people.get(name);
+                    break;
                 }
+            }
 
-                if (person == null) {
-                    System.out.println("Покупатель не найден: " + input);
-                    continue;
-                }
+            if (person == null) {
+                System.out.println("Покупатель не найден: " + input);
+                continue;
+            }
 
+            // Извлечение названия продукта
+            String productName = input.substring(person.getName().length()).trim();
+            Product product = products.get(productName);
 
-                String productName = input.substring(person.getName().length()).trim();
-                Product product = products.get(productName);
+            if (product == null) {
+                System.out.println("Продукт не найден: " + productName);
+                continue;
+            }
 
-                if (product == null) {
-                    System.out.println("Продукт не найден: " + productName);
-                    continue;
-                }
-
-
-                if (person.buyProduct(product)) {
-                    System.out.println(person.getName() + " купил " + product.getName());
-                } else {
-                    System.out.println(person.getName() + " не может позволить себе " + product.getName());
-                }
-
-            } catch (Exception e) {
-                System.out.println("Ошибка обработки: " + e.getMessage());
+            // Обработка покупки
+            if (person.buyProduct(product)) {
+                System.out.println(person.getName() + " купил " + product.getName());
+            } else {
+                System.out.println(person.getName() + " не может позволить себе " + product.getName());
             }
         }
 
-        System.out.println("\nРезультаты покупок:");
-        for (Person person : sortedPeople) {
+        // Вывод результатов
+        System.out.println("\n=== ИТОГИ ПОКУПОК ===");
+        for (Person person : people.values()) {
             System.out.println(person);
         }
 
-        scanner.close();
     }
 }
