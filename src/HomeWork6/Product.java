@@ -48,13 +48,15 @@ public class Product {
                 Objects.equals(name, product.name);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, cost);
-    }
+}
 
-    @Override
-    public String toString() {
-        return name;
-    }
+@Override
+public int hashCode() {
+    return Objects.hash(name, cost);
+}
+
+@Override
+public String toString() {
+    return name + " (Цена: " + cost + ")";
+}
 }
