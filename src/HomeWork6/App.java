@@ -34,7 +34,7 @@ public class App {
         }
 
         System.out.println("\n=== ВВОД ПРОДУКТОВ ===");
-        System.out.println("Формат: Название = Стоимость (END для завершенияF)");
+        System.out.println("Формат: Название = Стоимость (END для завершения)");
         while (true) {
             System.out.print("> ");
             String input = scanner.nextLine().trim();
@@ -49,12 +49,23 @@ public class App {
                 String name = parts[0].trim();
                 double cost = Double.parseDouble(parts[1].trim());
 
+                if (name.length() < 3) {
+                    throw new IllegalArgumentException("Имя продукта не может быть короче 3 символов");
+                }
+                if (name.matches("\\d+")) {
+                    throw new IllegalArgumentException("Имя продукта не может содержать только цифры");
+                }
+
                 System.out.print("Это скидочный продукт? (y/n): ");
                 String isDiscount = scanner.nextLine().trim();
 
                 if (isDiscount.equalsIgnoreCase("y")) {
                     System.out.print("Введите размер скидки: ");
                     double discount = Double.parseDouble(scanner.nextLine());
+
+                    if (discount >= cost) {
+                        System.out.println("Ошибка: скидка не может быть больше или равна стоимости");
+                    }
 
                     System.out.print("Введите дату окончания скидки (ГГГГ-ММ-ДД): ");
                     LocalDate expiryDate = LocalDate.parse(scanner.nextLine());
@@ -71,7 +82,8 @@ public class App {
                 System.out.println(e.getMessage());
             }
         }
-
+        LocalDate expiryDate = null;
+        boolean validDate = false;
 
         System.out.println("\n=== ОБРАБОТКА ПОКУПОК ===");
         System.out.println("Формат: Имя Покупателя Название Продукта (END для завершения)");
@@ -94,7 +106,6 @@ public class App {
                 continue;
             }
 
-            // Извлечение названия продукта
             String productName = input.substring(person.getName().length()).trim();
             Product product = products.get(productName);
 
