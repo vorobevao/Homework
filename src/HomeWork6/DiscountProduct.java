@@ -1,3 +1,7 @@
+package HomeWork6;
+
+import HomeWork6.Product;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
