@@ -50,16 +50,6 @@ public class DiscountProduct extends Product {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        DiscountProduct that = (DiscountProduct) o;
-        return Double.compare(that.discount, discount) == 0 &&
-                Objects.equals(expiryDate, that.expiryDate);
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), discount, expiryDate);
     }

@@ -80,7 +80,7 @@ public class App {
             String input = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("END")) break;
 
-            // Поиск покупателя
+
             Person person = null;
             for (String name : people.keySet()) {
                 if (input.startsWith(name)) {
@@ -103,7 +103,7 @@ public class App {
                 continue;
             }
 
-            // Обработка покупки
+
             if (person.buyProduct(product)) {
                 System.out.println(person.getName() + " купил " + product.getName());
             } else {
@@ -111,7 +111,7 @@ public class App {
             }
         }
 
-        // Вывод результатов
+
         System.out.println("\n=== ИТОГИ ПОКУПОК ===");
         for (Person person : people.values()) {
             System.out.println(person);

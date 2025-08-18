@@ -32,6 +32,9 @@ public class Person {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
+        if (name.length() < 3) {
+            throw new IllegalArgumentException("Имя не может быть короче 3 символов");
+        }
         this.name = name;
     }
 
