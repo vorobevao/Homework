@@ -21,7 +21,13 @@ public class Product {
 
     public void setName(String name) {
         if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
+            throw new IllegalArgumentException("Название продукта не может быть пустым");
+        }
+        if (name.length() < 3) {
+            throw new IllegalArgumentException("Название продукта не может быть короче 3 символов");
+        }
+        if (name.matches("\\d+")) {
+            throw new IllegalArgumentException("Название продукта не может содержать только цифры");
         }
         this.name = name;
     }
