@@ -1,2 +1,2 @@
-player;Герой;15;5
-inventory;Potion:Малое зелье,Key:Золотой ключ:Сокровищница
+player;Герой;18;5
+inventory;
