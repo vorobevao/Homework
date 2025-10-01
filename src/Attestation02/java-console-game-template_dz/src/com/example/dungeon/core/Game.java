@@ -86,7 +86,6 @@ public class Game {
         commands.put("take", (ctx, a) -> {
 
 
-            // ПРОСТО ВЫВЕДЕМ ПЕРВЫЙ АРГУМЕНТ КАК ЕСТЬ
             if (!a.isEmpty()) {
                 String firstArg = a.get(0);
                 System.out.println("First argument: '" + firstArg + "'");
@@ -104,7 +103,7 @@ public class Game {
             Room currentRoom = ctx.getCurrent();
 
 
-            // ПРОСТО ВОЗЬМЕМ ПЕРВЫЙ ПРЕДМЕТ БЕЗ ПРОВЕРОК
+
             if (!currentRoom.getItems().isEmpty()) {
                 Item firstItem = currentRoom.getItems().get(0);
                 ctx.getPlayer().getInventory().add(firstItem);
@@ -141,7 +140,7 @@ public class Game {
                 System.out.println("First argument: '" + firstArg + "'");
                 System.out.println("First argument length: " + firstArg.length());
 
-                // Выводим каждый символ аргумента
+
                 System.out.print("Argument characters: ");
                 for (int i = 0; i < firstArg.length(); i++) {
                     char c = firstArg.charAt(i);
